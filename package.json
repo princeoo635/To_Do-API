@@ -1,0 +1,30 @@
+{
+  "name": "to_do-api",
+  "version": "1.0.0",
+  "description": "backend for the to-do api",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node -r dotenv/config src/index.js",
+    "dev": "nodemon -r dotenv/config src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/princeoo635/To_Do-API.git"
+  },
+  "author": "Prince Kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/princeoo635/To_Do-API/issues"
+  },
+  "homepage": "https://github.com/princeoo635/To_Do-API#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
