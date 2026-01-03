@@ -10,8 +10,6 @@ const option={
 }
 //Register User
 const registerUser = AsyncHandler(async (req,res) => {
-    console.log(req.body);
-    
     const { Name, email, password, mobileNo} = req.body;
    if (!Name || !email || !password){
         throw new ApiError(400,"Name, Email and Password are required");   
