@@ -37,7 +37,22 @@ const editTask = AsyncHandler(async (req,res) => {
     }
     res.status(200).json(new ApiResponse(200,task,"task edited successfully."))
 })
+//delete task
+const deleteTask = AsyncHandler(async (req,res) => {
+    const { taskId } = req.params
+    if( !taskId ){
+        throw new ApiError(400,"task is required.")
+    }
+    const task = await Task.findOneAndDelete({
+        _id: taskId, taskCreator: req.user._id 
+    })
+    if (!task) {
+    throw new ApiError(404, "Task not found or unauthorized");
+  }
+    res.status(200).json(new ApiResponse(200,{},"task deleted successfully."))
+})
 export {
     addTask,
-    editTask
+    editTask,
+    deleteTask
 }
