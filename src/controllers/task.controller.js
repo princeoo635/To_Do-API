@@ -51,8 +51,36 @@ const deleteTask = AsyncHandler(async (req,res) => {
   }
     res.status(200).json(new ApiResponse(200,{},"task deleted successfully."))
 })
+//Update Task Status
+const statusUpdate = AsyncHandler(async (req,res) => {
+    const { taskId } = req.params
+    if( !taskId ){
+        throw new ApiError(400,"task id is missing.")
+    }
+    const { status } = req.body
+    if(!status){
+        throw new ApiError(400,"task status is missing.")
+    }
+    if (!["pending", "complete"].includes(status)) {
+    throw new ApiError(400, "Invalid task status");
+  }
+    const task = await Task.findOneAndUpdate(
+        {_id:taskId,taskCreator:req.user._id},
+        {
+            $set:{status}
+        },
+        { new : true}
+    )
+    if( !task ){
+        throw new ApiError(404,"task is not found or Unauthorized ")
+    }
+    res.status(200).json(new ApiResponse(200,task,"task status updated successfully."))
+})
+
+
 export {
     addTask,
     editTask,
-    deleteTask
+    deleteTask,
+    statusUpdate
 }
