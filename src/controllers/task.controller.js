@@ -76,11 +76,29 @@ const statusUpdate = AsyncHandler(async (req,res) => {
     }
     res.status(200).json(new ApiResponse(200,task,"task status updated successfully."))
 })
+//All task
+const allTask = AsyncHandler(async (req,res) => {
+    const tasks = await Task.find()
+    if(!tasks){
+        throw new ApiError(404,"task is not available in database.")
+    }
+    res.status(200).json(new ApiResponse(200,tasks,"All tasks is fetched."))
+})
+// User all tasks
+const userTask = AsyncHandler(async (req,res) => {
+    const tasks = await Task.find({taskCreator:req.user._id})
+    if(!tasks){
+        throw new ApiError(404,"task is not available in database.")
+    }
+    res.status(200).json(new ApiResponse(200,tasks,"All tasks is fetched."))
+})
 
 
 export {
     addTask,
     editTask,
     deleteTask,
-    statusUpdate
+    statusUpdate,
+    allTask,
+    userTask
 }
